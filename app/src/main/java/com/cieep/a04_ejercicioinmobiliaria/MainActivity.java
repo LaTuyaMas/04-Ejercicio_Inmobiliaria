@@ -87,9 +87,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_CANCELED){
-                            inmueblesList.remove(currentlyEditing);
-                            Toast.makeText(MainActivity.this, "Borrado con exito", Toast.LENGTH_SHORT).show();
-                            mostrarInmueblesContenedor();
+                            if (result.getData() != null){
+                                if (result.getData().getExtras() != null){
+                                    if (result.getData().getExtras().getInt(Constantes.BORRAR) == 1){
+                                        inmueblesList.remove(currentlyEditing);
+                                        Toast.makeText(MainActivity.this, "Borrado con exito", Toast.LENGTH_SHORT).show();
+                                        mostrarInmueblesContenedor();
+                                    }
+                                    else {
+                                        Toast.makeText(MainActivity.this, "El bundle no lleva el tag BORRAR", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                else {
+                                    Toast.makeText(MainActivity.this, "NO HAY BUNDLE EN EL INTENT", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
                         else if (result.getResultCode() == RESULT_OK) {
                             if (result.getData() != null) {

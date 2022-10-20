@@ -44,7 +44,11 @@ public class EditInmuebleActivity extends AppCompatActivity {
         binding.btnCancelarEditInmueble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(RESULT_CANCELED);
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constantes.BORRAR, 1);
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                setResult(RESULT_CANCELED, intent);
                 finish();
             }
         });
